@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16.1-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: pass@123
+      POSTGRES_DB: financial_db
+    volumes:
+      - ./backup/postgres/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - local-network
+
+networks:
+  local-network:
+    driver: bridge
